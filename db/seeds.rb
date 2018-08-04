@@ -6,4 +6,22 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-BotType.create(name: 'DefaultBot', visible: false)
+case Rails.env
+when "development"
+  # do development seeding here    
+  BotType.create!(name: 'DefaultBot', visible: false)
+  User.create!(role: 'admin',
+               email: 'admin@example.com',
+               password: '123456',
+               created_at: '2018-08-04 09:18:25',
+               updated_at: '2018-08-04 09:18:25',
+               username: 'admin' )
+  User.create!(role: 'user',
+               email: 'user@example.com',
+               password: '123456',
+               created_at: '2018-08-04 09:18:25',
+               updated_at: '2018-08-04 09:18:25',
+               username: 'user' )
+when "production"
+  # do production seeding here
+end
