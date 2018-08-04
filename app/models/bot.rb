@@ -9,14 +9,17 @@
 #  name        :string(255)      not null
 #  race        :string(255)      not null
 #  win_count   :integer          default(0), not null
+#  bot_type_id :bigint(8)
 #  owner_id    :bigint(8)
 #
 # Indexes
 #
+#  fk_rails_6f2cf3be8b  (bot_type_id)
 #  fk_rails_f93a12e463  (owner_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (bot_type_id => bot_types.id)
 #  fk_rails_...  (owner_id => users.id)
 #
 

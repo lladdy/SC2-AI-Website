@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180729173533) do
+ActiveRecord::Schema.define(version: 20180804061821) do
 
   create_table "bot_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "bot_id", null: false
@@ -19,7 +19,12 @@ ActiveRecord::Schema.define(version: 20180729173533) do
     t.index ["bot_id"], name: "index_bot_histories_on_bot_id"
   end
 
+  create_table "bot_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "type_name", null: false
+  end
+
   create_table "bots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "bot_type_id"
     t.bigint "owner_id"
     t.string "name", null: false
     t.string "author", null: false
@@ -27,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180729173533) do
     t.integer "match_count", default: 0, null: false
     t.integer "win_count", default: 0, null: false
     t.string "executable"
+    t.index ["bot_type_id"], name: "fk_rails_6f2cf3be8b"
     t.index ["owner_id"], name: "fk_rails_f93a12e463"
   end
 
@@ -68,6 +74,7 @@ ActiveRecord::Schema.define(version: 20180729173533) do
   end
 
   add_foreign_key "bot_histories", "bots"
+  add_foreign_key "bots", "bot_types"
   add_foreign_key "bots", "users", column: "owner_id"
   add_foreign_key "game_result_bots", "bots"
   add_foreign_key "game_result_bots", "game_results"
