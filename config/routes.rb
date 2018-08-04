@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       post :create_avatar, to: 'users#upload'
     end
     resources :bots, only: [:index, :show, :create, :update, :destroy]
+    resources :bot_types, only: [:index]
     resources :bot_histories, only: [:index, :show]
     resources :game_results, only: [:index, :create]
     get '/*path', to: 'routes#invalid'
