@@ -9,7 +9,7 @@
 #  name        :string(255)      not null
 #  race        :string(255)      not null
 #  win_count   :integer          default(0), not null
-#  bot_type_id :bigint(8)
+#  bot_type_id :bigint(8)        not null
 #  owner_id    :bigint(8)
 #
 # Indexes
