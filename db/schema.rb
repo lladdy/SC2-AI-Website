@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20180804061821) do
   end
 
   create_table "bot_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "type_name", null: false
+    t.string "name", null: false
   end
 
   create_table "bots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
