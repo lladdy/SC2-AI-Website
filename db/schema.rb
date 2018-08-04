@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20180804061821) do
   end
 
   create_table "bots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "bot_type_id"
     t.bigint "owner_id"
     t.string "name", null: false
     t.string "author", null: false
@@ -33,6 +32,7 @@ ActiveRecord::Schema.define(version: 20180804061821) do
     t.integer "match_count", default: 0, null: false
     t.integer "win_count", default: 0, null: false
     t.string "executable"
+    t.bigint "bot_type_id", null: false
     t.index ["bot_type_id"], name: "fk_rails_6f2cf3be8b"
     t.index ["owner_id"], name: "fk_rails_f93a12e463"
   end
