@@ -16,6 +16,8 @@ class Ability
       (signed_in && bot.owner_id == user.id) || user.role == 'admin'
     end
 
+    cannot :read, BotType unless signed_in
+
     can :create, User, id: user.id
     can :update, User do |u|
       (signed_in && u.id == user.id) || user.role == 'admin'
