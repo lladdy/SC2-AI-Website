@@ -25,6 +25,7 @@
 
 class Bot < ApplicationRecord
   include BetterJson
+  has_one :bot_type
   has_many :bot_histories
   has_many :game_result_bots, dependent: :nullify
   has_many :game_results, through: :game_result_bots
