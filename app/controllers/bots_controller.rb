@@ -41,7 +41,9 @@ class BotsController < ApplicationController
   private
 
   def bot_params
-    p = params.permit(:name, :author, :race, :file, :type)
+    p = params.permit(:name, :author, :race, :file, :bot_type)
+    # todo: is it poor code to re-assign it like this?
+    p[:bot_type] = BotType.find(params[:bot_type])
     p[:owner_id] = current_user.id if current_user.present?
     p[:author] ||= current_user.username if current_user.present?
     return p

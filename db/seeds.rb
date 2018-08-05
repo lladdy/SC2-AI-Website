@@ -10,6 +10,7 @@ case Rails.env
 when "development"
   # do development seeding here    
   BotType.create!(name: 'DefaultBot', invisible: true)
+  BotType.create!(name: 'Binary', invisible: false)
   User.create!(role: 'admin',
                email: 'admin@example.com',
                password: '123456',

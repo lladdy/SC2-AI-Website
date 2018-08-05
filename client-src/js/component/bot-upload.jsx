@@ -7,11 +7,13 @@ import BotPropType from "./../custom-proptypes/bot.js";
 import {TextInput} from "./form.jsx";
 import {API_URL} from "./../app.js";
 import UserPropType from "../custom-proptypes/user";
+import {Dropdown} from "./form";
+import FileUpload from "./file-upload";
 
 export default class BotUpload extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { file: "", name: "", race: "Terran", bot_types: [], errors: []};
+    this.state = { file: "", name: "", race: "Terran", bot_type: "", bot_types: [], errors: []};
   }
 
   static propTypes = {
@@ -26,6 +28,7 @@ export default class BotUpload extends React.Component {
     this.getBotTypeData();
   }
 
+  // todo: should bot_types be in the state?
   getBotTypeData() {
     axios.get(`${API_URL}/bot_types`)
       .then(response => this.setState({ bot_types: response.data }) );
