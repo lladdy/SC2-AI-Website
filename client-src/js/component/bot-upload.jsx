@@ -22,8 +22,6 @@ export default class BotUpload extends React.Component {
     bot_types: UserPropType
   }
 
-  // todo: page crashes for user, but not admin
-  // todo: maybe this will fix? https://stackoverflow.com/questions/50428842/cant-call-setstate-or-forceupdate-on-an-unmounted-component
   componentDidMount() {
     this.getBotTypeData();
   }
