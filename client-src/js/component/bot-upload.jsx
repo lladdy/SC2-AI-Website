@@ -99,6 +99,7 @@ export default class BotUpload extends React.Component {
           <option value="Zerg">Zerg</option>
           <option value="Random">Random</option>
         </select>
+        {/*todo: use valueExtractor and labelExtractor: https://github.com/n4kz/react-native-material-dropdown/issues/40*/}
         <select name="bot_type"
           className="text-input"
           onChange={this.onChange}
