@@ -7,8 +7,6 @@ import BotPropType from "./../custom-proptypes/bot.js";
 import {TextInput} from "./form.jsx";
 import {API_URL} from "./../app.js";
 import UserPropType from "../custom-proptypes/user";
-import {Dropdown} from "./form";
-import FileUpload from "./file-upload";
 
 export default class BotUpload extends React.Component {
   constructor(props) {
