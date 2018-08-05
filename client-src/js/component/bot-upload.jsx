@@ -4,20 +4,31 @@ import PropTypes from "prop-types";
 
 import AlertLogic from "./../logic/alert.js";
 import BotPropType from "./../custom-proptypes/bot.js";
-import { TextInput } from "./form.jsx";
-import { API_URL } from "./../app.js";
+import {TextInput} from "./form.jsx";
+import {API_URL} from "./../app.js";
+import UserPropType from "../custom-proptypes/user";
 
 export default class BotUpload extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { file: "", name: "", race: "Terran", errors: []};
+    this.state = { file: "", name: "", race: "Terran", bot_types: [], errors: []};
   }
 
   static propTypes = {
     bot: BotPropType,
     uploadPath: PropTypes.string,
     label: PropTypes.string,
-    method: PropTypes.string
+    method: PropTypes.string,
+    bot_types: UserPropType
+  }
+
+  componentDidMount() {
+    this.getBotTypeData();
+  }
+
+  getBotTypeData() {
+    axios.get(`${API_URL}/bot_types`)
+      .then(response => this.setState({ bot_types: response.data }) );
   }
 
   onChange = event => {
@@ -34,16 +45,17 @@ export default class BotUpload extends React.Component {
 
   onSubmit = event => {
     event.preventDefault();
-    this.fileUpload(this.state.file, this.state.name, this.state.race);
+    this.fileUpload(this.state.file, this.state.name, this.state.race, this.state.bot_type);
   }
 
-  fileUpload = (file, name, race) => {
+  fileUpload = (file, name, race, bot_type) => {
     // Configure upload.
     const url = API_URL + this.props.uploadPath;
     const formData = new FormData();
     if (file) formData.append("file", file);
     if (name) formData.append("name", name);
     if (race) formData.append("race", race);
+    if (bot_type) formData.append("bot_type", bot_type);
     const config = { headers: { "content-type": "multipart/form-data" } };
     // Submit the upload
     if (this.props.method == "patch")
@@ -54,6 +66,10 @@ export default class BotUpload extends React.Component {
       axios.post(url, formData, config)
         .then(() => AlertLogic.addSuccess("Upload successful!"))
         .catch(error=>this.setState({errors: error.response.data}));
+  }
+
+  renderBotTypeEntry = (bot_type) => {
+    return <option value={bot_type.id}>{bot_type.name}</option>;
   }
 
   render() {
@@ -79,6 +95,16 @@ export default class BotUpload extends React.Component {
           <option value="Protoss">Protoss</option>
           <option value="Zerg">Zerg</option>
           <option value="Random">Random</option>
+        </select>
+        <select name="bot_type"
+          className="text-input"
+          onChange={this.onChange}
+          defaultValue={bot && bot.bot_type}>
+          {
+            this.state.bot_types.map(row => {
+              return this.renderBotTypeEntry(row);
+            })
+          }
         </select>
         <input type="submit" value="Submit" className="btn"/>
       </form>
